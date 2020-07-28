@@ -26,19 +26,24 @@ void draw();
 //my global variables
 char input;
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     greeting();
-//    if user correctly enter keyword s then start the main window else exit
-    if (input == 's') {
+    //    if user correctly enter keyword s then start the main window else exit
+    if (input == 's')
+    {
         setup(argc, argv);
-    } else {
+    }
+    else
+    {
         cout << "You enter wrong keyword :(" << endl;
         exit(0);
     }
 }
 
 //greeting for user before start
-void greeting() {
+void greeting()
+{
     cout << "*** Welcome to Fishing ***" << endl;
     cout << "-> Press s to start" << endl;
     cout << "> ";
@@ -46,9 +51,10 @@ void greeting() {
 }
 
 //initial setup of glut
-void setup(int argc, char **argv) {
+void setup(int argc, char **argv)
+{
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
     glutInitWindowSize(1124, 645);
     glutInitWindowPosition(100, 10);
     glutCreateWindow("Fishing");
@@ -58,29 +64,34 @@ void setup(int argc, char **argv) {
     glutMainLoop();
 }
 
-void init() {
+void init()
+{
     glClearColor(1, 1, 1, 1); // just change the default bg color of window
-    glEnable(GL_DEPTH_TEST);
 }
 
 //reshape the workspace
 
-void reshape(GLsizei width, GLsizei height) {  // GLsizei for non-negative integer
+void reshape(GLsizei width, GLsizei height)
+{ // GLsizei for non-negative integer
     // To prevent divide by 0
-    if (height == 0) height = 1;
+    if (height == 0)
+        height = 1;
     // calculate aspect ratio of the new window
-    GLfloat aspect = (GLfloat) width / (GLfloat) height;
+    GLfloat aspect = (GLfloat)width / (GLfloat)height;
 
     // Set the viewport to cover the new window
     glViewport(0, 0, width, height);
 
     // Set the aspect ratio of the clipping area to match the viewport
-    glMatrixMode(GL_PROJECTION);  // To operate on the Projection matrix
-    glLoadIdentity();             // Reset the projection matrix
-    if (width >= height) {
+    glMatrixMode(GL_PROJECTION); // To operate on the Projection matrix
+    glLoadIdentity();            // Reset the projection matrix
+    if (width >= height)
+    {
         // aspect >= 1, set the height from -1 to 1, with larger width
         gluOrtho2D(-1.0 * aspect, 1.0 * aspect, -1.0, 1.0);
-    } else {
+    }
+    else
+    {
         // aspect < 1, set the width to -1 to 1, with larger height
         gluOrtho2D(-1.0, 1.0, -1.0 / aspect, 1.0 / aspect);
     }
@@ -100,18 +111,32 @@ void reshape(GLsizei width, GLsizei height) {  // GLsizei for non-negative integ
  * Brown -> 0.35, 0.17, 0.1
  */
 
-
 //all the drawing goes here
-void draw() {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void draw()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-//    draw sky
+    //    draw sky
     glColor3f(0.5, 0.82, 0.95);
-    glRectf(-1124.0, 0.0, 1124.0, 1.0);
+    glRectf(-1.75, 0.0, 1.75, 1.0);
 
-//    draw mountain
-
+    //    draw mountain
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.82, 0.84, 0.85);
+    // 1st mountain
+    glVertex2f(-1.7, 0.0);
+    glVertex2f(-0.5, 0.0);
+    glVertex2f(-1.1, 0.75);
+    // 2nd mountain
+    glVertex2f(-0.4, 0.0);
+    glVertex2f(0.8, 0.0);
+    glVertex2f(0.2, 0.575);
+    // 3rd mountain
+    glVertex2f(0.9, 0.0);
+    glVertex2f(1.68, 0.0);
+    glVertex2f(1.29, 0.7);
+    glEnd();
     glutSwapBuffers();
 }
