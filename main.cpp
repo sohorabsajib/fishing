@@ -4,6 +4,7 @@
  * ID: 171-15-9354
  * PROJECT_START_DATE: 29 JULY 2020 12.00 AM
  * SUBMITTED TO : ESHITA KHATUN
+ * GITHUB: https://github.com/touhidulShawan/fishing
  */
 #include <iostream>
 //#include <windows.h> // uncomment this if you are on windows machine
@@ -110,6 +111,7 @@ void draw() {
     glColor3f(0.5, 0.82, 0.95);
     glRectf(-1124.0, 0.0, 1124.0, 1.0);
 
-    glEnd();
+//    draw mountain
+
     glutSwapBuffers();
 }
