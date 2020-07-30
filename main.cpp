@@ -27,7 +27,7 @@ void draw();
 
 void drawGrass(float x1, float heightOfGrass);
 
-//void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy);
+void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy);
 
 //my global variables
 char input;
@@ -103,6 +103,7 @@ void reshape(GLsizei width, GLsizei height) { // GLsizei for non-negative intege
  * Red -> 0.851, 0.028, 0.09
  * Orange -> 0.95, 0.46, 0.02
  * Brown -> 0.35, 0.17, 0.1
+ * Skin -> 0.94, 0.69, 0.6
  */
 
 //all the drawing goes here
@@ -196,7 +197,26 @@ void draw() {
     glRectf(-0.85, -0.27, -0.77, -0.9);
 //    draw cartoon person
     glColor3f( 0.02, 0.067, 0.95);
-    glRectf();
+    // leg
+    glRectf(-0.5, -0.3, -0.2, -0.4);
+    glRectf(-0.3,-0.4, -0.2, -0.8);
+//    foot
+    glColor3f(0.35, 0.17, 0.1);
+    glRectf(-0.3, -0.8, -0.13, -0.88);
+//    body
+    glColor3f(0.95, 0.46, 0.02);
+    glRectf(-0.5,0.0,-0.2,-0.3);
+//    head
+    glColor3f(0.94, 0.69, 0.6);
+    circle(0.15,0.15, -0.35, 0.13);
+    // eye
+    glColor3f(1,1,1);
+    circle(0.05, 0.05, -0.32, 0.14);
+    glColor3f(0.0078,0.0196, 0.051);
+    circle(0.02, 0.02, -0.32, 0.14);
+    // hand
+    glColor3f(0.94, 0.69, 0.6);
+    glRectf(-0.2, -0.1, 0.1, -0.18);
     glutSwapBuffers();
 }
 
