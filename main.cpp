@@ -188,6 +188,15 @@ void draw() {
 //    draw  sea
     glColor3f(0.26, 0.62, 0.85);
     glRectf(-1.75, -0.15, 1.75, -1);
+//    draw branch
+    glColor3f(0.35, 0.17, 0.1);
+    glRectf(-1.75, -0.4, -0.3, -0.58);
+//    draw the 2 pillar
+    glRectf(-0.9, -0.27, -0.98, -0.9);
+    glRectf(-0.85, -0.27, -0.77, -0.9);
+//    draw cartoon person
+    glColor3f( 0.02, 0.067, 0.95);
+    glRectf();
     glutSwapBuffers();
 }
 
