@@ -32,19 +32,24 @@ void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy);
 //my global variables
 char input;
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     greeting();
-    //    if user correctly enter keyword s then start the main window else exit
-    if (input == 's') {
+    // if user correctly enter keyword s then start the main window else exit
+    if (input == 's')
+    {
         setup(argc, argv);
-    } else {
+    }
+    else
+    {
         cout << "You enter wrong keyword :(" << endl;
         exit(0);
     }
 }
 
 //greeting for user before start
-void greeting() {
+void greeting()
+{
     cout << "*** Welcome to Fishing ***" << endl;
     cout << "-> Press s to start" << endl;
     cout << "> ";
@@ -52,7 +57,8 @@ void greeting() {
 }
 
 //initial setup of glut
-void setup(int argc, char **argv) {
+void setup(int argc, char **argv)
+{
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
     glutInitWindowSize(1124, 645);
@@ -64,18 +70,20 @@ void setup(int argc, char **argv) {
     glutMainLoop();
 }
 
-void init() {
+void init()
+{
     glClearColor(1, 1, 1, 1); // just change the default bg color of window
 }
 
 //reshape the workspace
 
-void reshape(GLsizei width, GLsizei height) { // GLsizei for non-negative integer
+void reshape(GLsizei width, GLsizei height)
+{ // GLsizei for non-negative integer
     // To prevent divide by 0
     if (height == 0)
         height = 1;
     // calculate aspect ratio of the new window
-    GLfloat aspect = (GLfloat) width / (GLfloat) height;
+    GLfloat aspect = (GLfloat)width / (GLfloat)height;
 
     // Set the viewport to cover the new window
     glViewport(0, 0, width, height);
@@ -84,9 +92,12 @@ void reshape(GLsizei width, GLsizei height) { // GLsizei for non-negative intege
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    if (width >= height) {
+    if (width >= height)
+    {
         gluOrtho2D(-1.0 * aspect, 1.0 * aspect, -1.0, 1.0);
-    } else {
+    }
+    else
+    {
         gluOrtho2D(-1.0, 1.0, -1.0 / aspect, 1.0 / aspect);
     }
 }
@@ -107,7 +118,8 @@ void reshape(GLsizei width, GLsizei height) { // GLsizei for non-negative intege
  */
 
 //all the drawing goes here
-void draw() {
+void draw()
+{
     glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -180,58 +192,76 @@ void draw() {
     glVertex2f(1.8, 0.4);
     glVertex2f(1.45, 0.75);
     glEnd();
-//    draw grass
+    //    draw grass
     drawGrass(-1.75, 0.1);
     drawGrass(-1.73, 0.11);
-//     draw portion of land
+    //     draw portion of land
     glColor3f(0.6, 0.75, 0.06);
     glRectf(-1.75, 0.0, 1.75, -0.15);
-//    draw  sea
+    //    draw  sea
     glColor3f(0.26, 0.62, 0.85);
     glRectf(-1.75, -0.15, 1.75, -1);
-//    draw branch
+    //    draw branch
     glColor3f(0.35, 0.17, 0.1);
     glRectf(-1.75, -0.4, -0.3, -0.58);
-//    draw the 2 pillar
+    //    draw the 2 pillar
     glRectf(-0.9, -0.27, -0.98, -0.9);
     glRectf(-0.85, -0.27, -0.77, -0.9);
-//    draw cartoon person
-    glColor3f( 0.02, 0.067, 0.95);
+    //    draw cartoon person
+    glColor3f(0.02, 0.067, 0.95);
     // leg
     glRectf(-0.5, -0.3, -0.2, -0.4);
-    glRectf(-0.3,-0.4, -0.2, -0.8);
-//    foot
+    glRectf(-0.3, -0.4, -0.2, -0.8);
+    //    foot
     glColor3f(0.35, 0.17, 0.1);
     glRectf(-0.3, -0.8, -0.13, -0.88);
-//    body
+    //    body
     glColor3f(0.95, 0.46, 0.02);
-    glRectf(-0.5,0.0,-0.2,-0.3);
-//    head
+    glRectf(-0.5, 0.0, -0.2, -0.3);
+    //    head
     glColor3f(0.94, 0.69, 0.6);
-    circle(0.15,0.15, -0.35, 0.13);
+    circle(0.15, 0.15, -0.35, 0.13);
     // eye
-    glColor3f(1,1,1);
+    glColor3f(1, 1, 1);
     circle(0.05, 0.05, -0.32, 0.14);
-    glColor3f(0.0078,0.0196, 0.051);
+    glColor3f(0.0078, 0.0196, 0.051);
     circle(0.02, 0.02, -0.32, 0.14);
     // hand
     glColor3f(0.94, 0.69, 0.6);
     glRectf(-0.2, -0.1, 0.1, -0.18);
+//    fishing bar
+    glColor3f(0.28, 0.35, 0.0078);
+    glBegin(GL_POLYGON);
+    glVertex2f(-0.15, 0.08);
+    glVertex2f(0.5, -0.5);
+
+    glVertex2f(0.5, -0.5);
+    glVertex2f(0.53, -0.46);
+
+    glVertex2f(0.53, -0.46);
+    glVertex2f(-0.13, 0.1);
+
+    glVertex2f(-0.13, 0.1);
+    glVertex2f(-0.15, 0.08);
+
+    glEnd();
     glutSwapBuffers();
 }
 
-void drawGrass(float x1, float heightOfGrass) {
+void drawGrass(float x1, float heightOfGrass)
+{
     float x2 = x1 + 0.05;
     float middlePoint = (x1 + x2) / 2;
     float y1 = 0.0;
     glColor3f(0.28, 0.35, 0.0078);
     glBegin(GL_TRIANGLES);
-    while (x1 < 1.75) {
+    while (x1 < 1.75)
+    {
         glVertex2f(x1, y1);
         glVertex2f(x2, y1);
         glVertex2f(middlePoint, heightOfGrass);
 
-//        update next point to draw continuously
+        // update next point to draw continuously
         x1 += 0.05;
         x2 = x1 + 0.05;
         middlePoint = (x1 + x2) / 2;
@@ -240,11 +270,13 @@ void drawGrass(float x1, float heightOfGrass) {
 }
 
 //draw circle
-void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy) {
+void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy)
+{
     glBegin(GL_TRIANGLE_FAN);
     glVertex2f(cx, cy);
 
-    for (int i = 0; i <= 100; i++) {
+    for (int i = 0; i <= 100; i++)
+    {
         float angle = 2 * M_PI * i / 100;
         float x = rx * cosf(angle);
         float y = ry * sinf(angle);
