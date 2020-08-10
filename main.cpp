@@ -124,11 +124,11 @@ void draw()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    //    draw sky
+    // draw sky
     glColor3f(0.5, 0.82, 0.95);
     glRectf(-1.75, 0.0, 1.75, 1.0);
 
-    //    draw mountain
+    // draw mountain
     glBegin(GL_TRIANGLES);
     glColor3f(0.82, 0.84, 0.85);
     // 1st mountain
@@ -145,9 +145,9 @@ void draw()
     glVertex2f(1.29, 0.7);
     glEnd();
 
-    //    draw trees
+    // draw trees
 
-    //    1st tree
+    // 1st tree
     glColor3f(0.35, 0.17, 0.1);
     glRectf(-1.4, 0.0, -1.3, 0.4);
     glBegin(GL_TRIANGLES);
@@ -156,7 +156,7 @@ void draw()
     glVertex2f(-1.1, 0.4);
     glVertex2f(-1.35, 0.6);
     glEnd();
-    //    2nd tree
+    // 2nd tree
     glColor3f(0.35, 0.17, 0.1);
     glRectf(-0.7, 0.0, -0.6, 0.5);
     glBegin(GL_TRIANGLES);
@@ -165,7 +165,7 @@ void draw()
     glVertex2f(-0.4, 0.5);
     glVertex2f(-0.65, 0.8);
     glEnd();
-    //    3rd tree
+    // 3rd tree
     glColor3f(0.35, 0.17, 0.1);
     glRectf(-0.1, 0.0, 0.0, 0.3);
     glBegin(GL_TRIANGLES);
@@ -174,7 +174,7 @@ void draw()
     glVertex2f(0.2, 0.3);
     glVertex2f(-0.05, 0.6);
     glEnd();
-    //    4th tree
+    // 4th tree
     glColor3f(0.35, 0.17, 0.1);
     glRectf(0.5, 0.0, 0.8, 0.6);
     glBegin(GL_TRIANGLES);
@@ -183,7 +183,7 @@ void draw()
     glVertex2f(1, 0.6);
     glVertex2f(0.65, 0.88);
     glEnd();
-    //    5th tree
+    // 5th tree
     glColor3f(0.35, 0.17, 0.1);
     glRectf(1.3, 0.0, 1.6, 0.4);
     glBegin(GL_TRIANGLES);
@@ -192,33 +192,33 @@ void draw()
     glVertex2f(1.8, 0.4);
     glVertex2f(1.45, 0.75);
     glEnd();
-    //    draw grass
+    // draw grass
     drawGrass(-1.75, 0.1);
     drawGrass(-1.73, 0.11);
-    //     draw portion of land
+    // draw portion of land
     glColor3f(0.6, 0.75, 0.06);
     glRectf(-1.75, 0.0, 1.75, -0.15);
-    //    draw  sea
+    // draw  sea
     glColor3f(0.26, 0.62, 0.85);
     glRectf(-1.75, -0.15, 1.75, -1);
-    //    draw branch
+    // draw branch
     glColor3f(0.35, 0.17, 0.1);
     glRectf(-1.75, -0.4, -0.3, -0.58);
-    //    draw the 2 pillar
+    // draw the 2 pillar
     glRectf(-0.9, -0.27, -0.98, -0.9);
     glRectf(-0.85, -0.27, -0.77, -0.9);
-    //    draw cartoon person
+    // draw cartoon person
     glColor3f(0.02, 0.067, 0.95);
     // leg
     glRectf(-0.5, -0.3, -0.2, -0.4);
     glRectf(-0.3, -0.4, -0.2, -0.8);
-    //    foot
+    // foot
     glColor3f(0.35, 0.17, 0.1);
     glRectf(-0.3, -0.8, -0.13, -0.88);
-    //    body
+    // body
     glColor3f(0.95, 0.46, 0.02);
     glRectf(-0.5, 0.0, -0.2, -0.3);
-    //    head
+    // head
     glColor3f(0.94, 0.69, 0.6);
     circle(0.15, 0.15, -0.35, 0.13);
     // eye
@@ -229,22 +229,32 @@ void draw()
     // hand
     glColor3f(0.94, 0.69, 0.6);
     glRectf(-0.2, -0.1, 0.1, -0.18);
-//    fishing bar
+    // fishing bar
     glColor3f(0.28, 0.35, 0.0078);
     glBegin(GL_POLYGON);
     glVertex2f(-0.15, 0.08);
-    glVertex2f(0.5, -0.5);
+    glVertex2f(0.3, -0.5);
 
-    glVertex2f(0.5, -0.5);
-    glVertex2f(0.53, -0.46);
+    glVertex2f(0.3, -0.5);
+    glVertex2f(0.35, -0.52);
 
-    glVertex2f(0.53, -0.46);
+    glVertex2f(0.35, -0.52);
     glVertex2f(-0.13, 0.1);
 
     glVertex2f(-0.13, 0.1);
     glVertex2f(-0.15, 0.08);
-
     glEnd();
+
+    // swing
+    glLineWidth(3);
+    glRotatef(185, 0.32, -0.49, 0.0);
+    glBegin(GL_LINES);
+    // glColor3f(0.28, 0.35, 0.0078);
+    glColor3f(0, 0, 0);
+    glVertex2f(0.33, -0.49);
+    glVertex2f(0.33, -0.8);
+    glEnd();
+
     glutSwapBuffers();
 }
 
