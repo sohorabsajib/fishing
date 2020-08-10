@@ -27,15 +27,20 @@ void draw();
 
 void drawGrass(float x1, float heightOfGrass);
 
+void first_bird();
+
+void second_bird();
+
 void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy);
 
 //my global variables
 char input;
 
-int main(int argc, char **argv)
-{
-    greeting();
+int main(int argc, char **argv) {
+    setup(argc, argv);
+    //    greeting();
     // if user correctly enter keyword s then start the main window else exit
+    /*
     if (input == 's')
     {
         setup(argc, argv);
@@ -45,11 +50,11 @@ int main(int argc, char **argv)
         cout << "You enter wrong keyword :(" << endl;
         exit(0);
     }
+     */
 }
 
 //greeting for user before start
-void greeting()
-{
+void greeting() {
     cout << "*** Welcome to Fishing ***" << endl;
     cout << "-> Press s to start" << endl;
     cout << "> ";
@@ -57,8 +62,7 @@ void greeting()
 }
 
 //initial setup of glut
-void setup(int argc, char **argv)
-{
+void setup(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
     glutInitWindowSize(1124, 645);
@@ -70,20 +74,18 @@ void setup(int argc, char **argv)
     glutMainLoop();
 }
 
-void init()
-{
+void init() {
     glClearColor(1, 1, 1, 1); // just change the default bg color of window
 }
 
 //reshape the workspace
 
-void reshape(GLsizei width, GLsizei height)
-{ // GLsizei for non-negative integer
+void reshape(GLsizei width, GLsizei height) { // GLsizei for non-negative integer
     // To prevent divide by 0
     if (height == 0)
         height = 1;
     // calculate aspect ratio of the new window
-    GLfloat aspect = (GLfloat)width / (GLfloat)height;
+    GLfloat aspect = (GLfloat) width / (GLfloat) height;
 
     // Set the viewport to cover the new window
     glViewport(0, 0, width, height);
@@ -92,14 +94,25 @@ void reshape(GLsizei width, GLsizei height)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    if (width >= height)
-    {
+    if (width >= height) {
         gluOrtho2D(-1.0 * aspect, 1.0 * aspect, -1.0, 1.0);
-    }
-    else
-    {
+    } else {
         gluOrtho2D(-1.0, 1.0, -1.0 / aspect, 1.0 / aspect);
     }
+}
+
+//draw circle
+void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy) {
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(cx, cy);
+
+    for (int i = 0; i <= 100; i++) {
+        float angle = 2 * M_PI * i / 100;
+        float x = rx * cosf(angle);
+        float y = ry * sinf(angle);
+        glVertex2f((x + cx), (y + cy));
+    }
+    glEnd();
 }
 
 //my color palette for drawing
@@ -118,8 +131,7 @@ void reshape(GLsizei width, GLsizei height)
  */
 
 //all the drawing goes here
-void draw()
-{
+void draw() {
     glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -247,26 +259,72 @@ void draw()
 
     // swing
     glLineWidth(3);
-    glRotatef(185, 0.32, -0.49, 0.0);
     glBegin(GL_LINES);
-    // glColor3f(0.28, 0.35, 0.0078);
-    glColor3f(0, 0, 0);
+    glColor3f(0.28, 0.35, 0.0078);
     glVertex2f(0.33, -0.49);
     glVertex2f(0.33, -0.8);
     glEnd();
 
+    //    draw a sun
+    glColor3f(0.851, 0.028, 0.09);
+    circle(0.15, 0.15, -1.70, 0.9);
+
+    // draw some birds
+    first_bird();
+    second_bird();
+
+
+    // draw fish
+
+    //    wing bottom
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.82, 0.84, 0.85);
+    glVertex2f(0.9, -0.54);
+    glVertex2f(1.1, -0.54);
+    glVertex2f(1, -0.45);
+    glEnd();
+
+//    wing top
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.82, 0.84, 0.85);
+    glVertex2f(0.9, -0.24);
+    glVertex2f(1.1, -0.24);
+    glVertex2f(1, -0.35);
+    glEnd();
+
+//    tail
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.82, 0.84, 0.85);
+    glVertex2f(1.25, -0.44);
+    glVertex2f(1.25, -0.34);
+    glVertex2f(1.15, -0.39);
+    glEnd();
+
+//    body
+    glColor3f(0.95, 0.46, 0.02);
+    circle(0.2, 0.099, 1, -0.4);
+    glColor3f(0.94, 0.69, 0.6);
+    circle(0.009, 0.078, .93, -0.4);
+//    eye
+    glColor3f(1, 1, 1);
+    circle(0.02, 0.02, 0.85, -0.4);
+//    eyeball
+    glColor3f(0,0,0);
+    circle(0.01, 0.01, 0.85, -0.4);
+
+
+
+//    fish end
     glutSwapBuffers();
 }
 
-void drawGrass(float x1, float heightOfGrass)
-{
+void drawGrass(float x1, float heightOfGrass) {
     float x2 = x1 + 0.05;
     float middlePoint = (x1 + x2) / 2;
     float y1 = 0.0;
     glColor3f(0.28, 0.35, 0.0078);
     glBegin(GL_TRIANGLES);
-    while (x1 < 1.75)
-    {
+    while (x1 < 1.75) {
         glVertex2f(x1, y1);
         glVertex2f(x2, y1);
         glVertex2f(middlePoint, heightOfGrass);
@@ -279,18 +337,82 @@ void drawGrass(float x1, float heightOfGrass)
     glEnd();
 }
 
-//draw circle
-void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy)
-{
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex2f(cx, cy);
+void first_bird() {
+    //    yellow body bird
+    // body
+    glColor3f(0.95, 0.89, 0.11);
+    circle(0.09, 0.038, -0.5, 0.9);
+    //head
+    glColor3f(0.95, 0.46, 0.02);
+    circle(0.034, 0.034, -0.4, 0.9);
+    // eye
+    glColor3f(1, 1, 1);
+    circle(0.013, 0.013, -0.39, 0.9);
 
-    for (int i = 0; i <= 100; i++)
-    {
-        float angle = 2 * M_PI * i / 100;
-        float x = rx * cosf(angle);
-        float y = ry * sinf(angle);
-        glVertex2f((x + cx), (y + cy));
-    }
+    //beak
+    glLineWidth(4);
+    glBegin(GL_LINES);
+    glColor3f(0.35, 0.17, 0.1);
+    glVertex2f(-0.39, 0.9);
+    glVertex2f(-0.32, 0.83);
+    glEnd();
+
+    //    tail
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.851, 0.028, 0.09);
+    glVertex2f(-0.68, 0.9);
+    glColor3f(0.95, 0.46, 0.02);
+    glVertex2f(-0.54, 0.9);
+    glColor3f(0.6, 0.75, 0.06);
+    glVertex2f(-0.68, 0.98);
+    glEnd();
+    // wing
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.6, 0.75, 0.06);
+    glVertex2f(-0.55, 0.83);
+    glColor3f(0.95, 0.46, 0.02);
+    glVertex2f(-0.45, 0.83);
+    glColor3f(0.851, 0.028, 0.09);
+    glVertex2f(-0.5, 0.9);
+    glEnd();
+}
+
+void second_bird() {
+    // orange body bird
+    // body
+    glColor3f(0.95, 0.46, 0.02);
+    circle(0.09, 0.038, 0.1, 0.9);
+    //head
+    glColor3f(0.02, 0.067, 0.95);
+    circle(0.034, 0.034, 0.19, 0.9);
+    // eye
+    glColor3f(1, 1, 1);
+    circle(0.013, 0.013, 0.2, 0.9);
+
+    //beak
+    glLineWidth(4);
+    glBegin(GL_LINES);
+    glColor3f(0.35, 0.17, 0.1);
+    glVertex2f(0.2, 0.9);
+    glVertex2f(0.27, 0.83);
+    glEnd();
+
+    //    tail
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.851, 0.028, 0.09);
+    glVertex2f(-0.1, 0.9);
+    glColor3f(0.35, 0.17, 0.1);
+    glVertex2f(0.05, 0.9);
+    glColor3f(0.95, 0.89, 0.11);
+    glVertex2f(-0.1, 0.98);
+    glEnd();
+    // wing
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.95, 0.89, 0.11);
+    glVertex2f(0.05, 0.83);
+    glColor3f(0.35, 0.17, 0.1);
+    glVertex2f(0.14, 0.83);
+    glColor3f(0.851, 0.028, 0.09);
+    glVertex2f(0.095, 0.9);
     glEnd();
 }
