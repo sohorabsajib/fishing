@@ -33,10 +33,14 @@ void second_bird();
 
 void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy);
 
+void timer(int value);
+
 //my global variables
 char input;
+float position = -1.75;
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     setup(argc, argv);
     //    greeting();
     // if user correctly enter keyword s then start the main window else exit
@@ -54,7 +58,8 @@ int main(int argc, char **argv) {
 }
 
 //greeting for user before start
-void greeting() {
+void greeting()
+{
     cout << "*** Welcome to Fishing ***" << endl;
     cout << "-> Press s to start" << endl;
     cout << "> ";
@@ -62,7 +67,8 @@ void greeting() {
 }
 
 //initial setup of glut
-void setup(int argc, char **argv) {
+void setup(int argc, char **argv)
+{
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
     glutInitWindowSize(1124, 645);
@@ -70,22 +76,26 @@ void setup(int argc, char **argv) {
     glutCreateWindow("Fishing");
     glutDisplayFunc(draw);
     glutReshapeFunc(reshape);
+    glutIdleFunc(draw);
+    glutTimerFunc(0, timer, 0);
     init();
     glutMainLoop();
 }
 
-void init() {
+void init()
+{
     glClearColor(1, 1, 1, 1); // just change the default bg color of window
 }
 
 //reshape the workspace
 
-void reshape(GLsizei width, GLsizei height) { // GLsizei for non-negative integer
+void reshape(GLsizei width, GLsizei height)
+{ // GLsizei for non-negative integer
     // To prevent divide by 0
     if (height == 0)
         height = 1;
     // calculate aspect ratio of the new window
-    GLfloat aspect = (GLfloat) width / (GLfloat) height;
+    GLfloat aspect = (GLfloat)width / (GLfloat)height;
 
     // Set the viewport to cover the new window
     glViewport(0, 0, width, height);
@@ -94,19 +104,24 @@ void reshape(GLsizei width, GLsizei height) { // GLsizei for non-negative intege
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    if (width >= height) {
+    if (width >= height)
+    {
         gluOrtho2D(-1.0 * aspect, 1.0 * aspect, -1.0, 1.0);
-    } else {
+    }
+    else
+    {
         gluOrtho2D(-1.0, 1.0, -1.0 / aspect, 1.0 / aspect);
     }
 }
 
 //draw circle
-void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy) {
+void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy)
+{
     glBegin(GL_TRIANGLE_FAN);
     glVertex2f(cx, cy);
 
-    for (int i = 0; i <= 100; i++) {
+    for (int i = 0; i <= 100; i++)
+    {
         float angle = 2 * M_PI * i / 100;
         float x = rx * cosf(angle);
         float y = ry * sinf(angle);
@@ -131,7 +146,8 @@ void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy) {
  */
 
 //all the drawing goes here
-void draw() {
+void draw()
+{
     glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -270,9 +286,11 @@ void draw() {
     circle(0.15, 0.15, -1.70, 0.9);
 
     // draw some birds
+    glPushMatrix();
+    glTranslatef(position, 0.0, 0.0);
     first_bird();
     second_bird();
-
+    glPopMatrix();
 
     // draw fish
 
@@ -284,7 +302,7 @@ void draw() {
     glVertex2f(1, -0.45);
     glEnd();
 
-//    wing top
+    //    wing top
     glBegin(GL_TRIANGLES);
     glColor3f(0.82, 0.84, 0.85);
     glVertex2f(0.9, -0.24);
@@ -292,7 +310,7 @@ void draw() {
     glVertex2f(1, -0.35);
     glEnd();
 
-//    tail
+    //    tail
     glBegin(GL_TRIANGLES);
     glColor3f(0.82, 0.84, 0.85);
     glVertex2f(1.25, -0.44);
@@ -300,31 +318,31 @@ void draw() {
     glVertex2f(1.15, -0.39);
     glEnd();
 
-//    body
+    //    body
     glColor3f(0.95, 0.46, 0.02);
     circle(0.2, 0.099, 1, -0.4);
     glColor3f(0.94, 0.69, 0.6);
     circle(0.009, 0.078, .93, -0.4);
-//    eye
+    //    eye
     glColor3f(1, 1, 1);
     circle(0.02, 0.02, 0.85, -0.4);
-//    eyeball
-    glColor3f(0,0,0);
+    //    eyeball
+    glColor3f(0, 0, 0);
     circle(0.01, 0.01, 0.85, -0.4);
 
-
-
-//    fish end
+    //    fish end
     glutSwapBuffers();
 }
 
-void drawGrass(float x1, float heightOfGrass) {
+void drawGrass(float x1, float heightOfGrass)
+{
     float x2 = x1 + 0.05;
     float middlePoint = (x1 + x2) / 2;
     float y1 = 0.0;
     glColor3f(0.28, 0.35, 0.0078);
     glBegin(GL_TRIANGLES);
-    while (x1 < 1.75) {
+    while (x1 < 1.75)
+    {
         glVertex2f(x1, y1);
         glVertex2f(x2, y1);
         glVertex2f(middlePoint, heightOfGrass);
@@ -337,7 +355,8 @@ void drawGrass(float x1, float heightOfGrass) {
     glEnd();
 }
 
-void first_bird() {
+void first_bird()
+{
     //    yellow body bird
     // body
     glColor3f(0.95, 0.89, 0.11);
@@ -377,7 +396,8 @@ void first_bird() {
     glEnd();
 }
 
-void second_bird() {
+void second_bird()
+{
     // orange body bird
     // body
     glColor3f(0.95, 0.46, 0.02);
@@ -415,4 +435,17 @@ void second_bird() {
     glColor3f(0.851, 0.028, 0.09);
     glVertex2f(0.095, 0.9);
     glEnd();
+}
+
+void timer(int value)
+{
+    glutPostRedisplay();
+    glutTimerFunc(1000 / 600, timer, value);
+
+    // reassign the x axis value of bird
+
+    if (position < 2.55)
+        position += 0.007;
+    else
+        position = -1.75;
 }
