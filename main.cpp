@@ -9,7 +9,6 @@
 #include <iostream>
 #include <GL/glut.h>
 #include <cmath>
-
 // uncomment these if you are on windows machine
 // #include <windows.h>
 // #include <MMsystem.h>
@@ -548,7 +547,7 @@ void specialKeyPressed(int key, int x, int y)
     switch (key)
     {
     case GLUT_KEY_UP:
-        // /* code */PlaySound("fishing_music.wav", NULL, SND_ASYNC| SND_FILENAME  );
+        //  PlaySound("fishing_music.wav", NULL, SND_ASYNC | SND_FILENAME);
         glutPostRedisplay();
         break;
 
