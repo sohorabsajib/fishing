@@ -302,7 +302,7 @@ void draw()
     glEnd();
     glPopMatrix();
 
-    //    draw a sun
+    // draw a sun
     glColor3f(0.851, 0.028, 0.09);
     circle(0.15, 0.15, -1.70, 0.9);
 
