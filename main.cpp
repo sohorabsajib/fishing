@@ -7,10 +7,12 @@
  * GITHUB: https://github.com/touhidulShawan/fishing
  */
 #include <iostream>
-//#include <windows.h> // uncomment this if you are on windows machine
 #include <GL/glut.h>
-
 #include <cmath>
+
+// uncomment these if you are on windows machine
+// #include <windows.h>
+// #include <MMsystem.h>
 
 using namespace std;
 
@@ -32,9 +34,12 @@ void first_bird();
 void second_bird();
 
 void drawFirstFish();
+
 void drawSecondFish();
 
 void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy);
+
+void specialKeyPressed(int key, int x, int y);
 
 void timer(int value);
 
@@ -43,13 +48,15 @@ char input;
 float position = -1.75;
 float first_fish_position = 1.75;
 float second_fish_positon = -1.75;
+float bar_postion = 0.07;
+float hand_positon = -0.01;
 
 int main(int argc, char **argv)
 {
-    setup(argc, argv);
-    //    greeting();
+    greeting();
+
     // if user correctly enter keyword s then start the main window else exit
-    /*
+
     if (input == 's')
     {
         setup(argc, argv);
@@ -59,7 +66,6 @@ int main(int argc, char **argv)
         cout << "You enter wrong keyword :(" << endl;
         exit(0);
     }
-     */
 }
 
 //greeting for user before start
@@ -84,6 +90,7 @@ void setup(int argc, char **argv)
     glutIdleFunc(draw);
     glutTimerFunc(0, timer, 0);
     init();
+    glutSpecialFunc(specialKeyPressed);
     glutMainLoop();
 }
 
@@ -272,9 +279,14 @@ void draw()
     circle(0.02, 0.02, -0.32, 0.14);
     // hand
     glColor3f(0.94, 0.69, 0.6);
+    glPushMatrix();
+    glTranslatef(0.0, hand_positon, 0.0);
     glRectf(-0.2, -0.1, 0.1, -0.18);
+    glPopMatrix();
 
     // fishing bar
+    glPushMatrix();
+    glTranslated(0, bar_postion, 0.0);
     glColor3f(0.28, 0.35, 0.0078);
     glBegin(GL_POLYGON);
     glVertex2f(-0.15, 0.08);
@@ -289,14 +301,7 @@ void draw()
     glVertex2f(-0.13, 0.1);
     glVertex2f(-0.15, 0.08);
     glEnd();
-
-    // // swing
-    // glLineWidth(3);
-    // glBegin(GL_LINES);
-    // glColor3f(0.28, 0.35, 0.0078);
-    // glVertex2f(0.33, -0.49);
-    // glVertex2f(0.33, -0.8);
-    // glEnd();
+    glPopMatrix();
 
     //    draw a sun
     glColor3f(0.851, 0.028, 0.09);
@@ -522,4 +527,36 @@ void timer(int value)
         second_fish_positon += 0.007;
     else
         second_fish_positon = -1.75;
+
+    // re-assign the y value of fishing bar
+    if (bar_postion < 0.08)
+        bar_postion += 0.001;
+    else
+        bar_postion = 0.07;
+
+    // re-assing the y value for hand moving
+    if (hand_positon < 0)
+        hand_positon += 0.001;
+    else
+        hand_positon = -0.01;
+}
+
+// play sound when up arrow key pressed from keyboard and stop playing sound when down arrow key pressed
+
+void specialKeyPressed(int key, int x, int y)
+{
+    switch (key)
+    {
+    case GLUT_KEY_UP:
+        // /* code */PlaySound("fishing_music.wav", NULL, SND_ASYNC| SND_FILENAME  );
+        glutPostRedisplay();
+        break;
+
+    case GLUT_KEY_DOWN:
+        // PlaySound(NULL, NULL, 0);
+        glutPostRedisplay();
+        break;
+    default:
+        break;
+    }
 }
