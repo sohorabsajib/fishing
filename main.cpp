@@ -31,6 +31,9 @@ void first_bird();
 
 void second_bird();
 
+void drawFirstFish();
+void drawSecondFish();
+
 void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy);
 
 void timer(int value);
@@ -38,6 +41,8 @@ void timer(int value);
 //my global variables
 char input;
 float position = -1.75;
+float first_fish_position = 1.75;
+float second_fish_positon = -1.75;
 
 int main(int argc, char **argv)
 {
@@ -172,7 +177,6 @@ void draw()
     glVertex2f(1.68, 0.0);
     glVertex2f(1.29, 0.7);
     glEnd();
-
     // draw trees
 
     // 1st tree
@@ -229,6 +233,18 @@ void draw()
     // draw  sea
     glColor3f(0.26, 0.62, 0.85);
     glRectf(-1.75, -0.15, 1.75, -1);
+    // draw fish
+    glPushMatrix();
+    glTranslatef(first_fish_position, 0.0, 0.0);
+    drawFirstFish();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0, -0.38, 0.0);
+    glTranslatef(second_fish_positon, 0.0, 0.0);
+    drawSecondFish();
+    glPopMatrix();
+
     // draw branch
     glColor3f(0.35, 0.17, 0.1);
     glRectf(-1.75, -0.4, -0.3, -0.58);
@@ -257,6 +273,7 @@ void draw()
     // hand
     glColor3f(0.94, 0.69, 0.6);
     glRectf(-0.2, -0.1, 0.1, -0.18);
+
     // fishing bar
     glColor3f(0.28, 0.35, 0.0078);
     glBegin(GL_POLYGON);
@@ -273,13 +290,13 @@ void draw()
     glVertex2f(-0.15, 0.08);
     glEnd();
 
-    // swing
-    glLineWidth(3);
-    glBegin(GL_LINES);
-    glColor3f(0.28, 0.35, 0.0078);
-    glVertex2f(0.33, -0.49);
-    glVertex2f(0.33, -0.8);
-    glEnd();
+    // // swing
+    // glLineWidth(3);
+    // glBegin(GL_LINES);
+    // glColor3f(0.28, 0.35, 0.0078);
+    // glVertex2f(0.33, -0.49);
+    // glVertex2f(0.33, -0.8);
+    // glEnd();
 
     //    draw a sun
     glColor3f(0.851, 0.028, 0.09);
@@ -292,45 +309,6 @@ void draw()
     second_bird();
     glPopMatrix();
 
-    // draw fish
-
-    //    wing bottom
-    glBegin(GL_TRIANGLES);
-    glColor3f(0.82, 0.84, 0.85);
-    glVertex2f(0.9, -0.54);
-    glVertex2f(1.1, -0.54);
-    glVertex2f(1, -0.45);
-    glEnd();
-
-    //    wing top
-    glBegin(GL_TRIANGLES);
-    glColor3f(0.82, 0.84, 0.85);
-    glVertex2f(0.9, -0.24);
-    glVertex2f(1.1, -0.24);
-    glVertex2f(1, -0.35);
-    glEnd();
-
-    //    tail
-    glBegin(GL_TRIANGLES);
-    glColor3f(0.82, 0.84, 0.85);
-    glVertex2f(1.25, -0.44);
-    glVertex2f(1.25, -0.34);
-    glVertex2f(1.15, -0.39);
-    glEnd();
-
-    //    body
-    glColor3f(0.95, 0.46, 0.02);
-    circle(0.2, 0.099, 1, -0.4);
-    glColor3f(0.94, 0.69, 0.6);
-    circle(0.009, 0.078, .93, -0.4);
-    //    eye
-    glColor3f(1, 1, 1);
-    circle(0.02, 0.02, 0.85, -0.4);
-    //    eyeball
-    glColor3f(0, 0, 0);
-    circle(0.01, 0.01, 0.85, -0.4);
-
-    //    fish end
     glutSwapBuffers();
 }
 
@@ -437,6 +415,88 @@ void second_bird()
     glEnd();
 }
 
+void drawFirstFish()
+{
+    // draw 1st fish
+
+    //    wing bottom
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.82, 0.84, 0.85);
+    glVertex2f(0.9, -0.54);
+    glVertex2f(1.1, -0.54);
+    glVertex2f(1, -0.45);
+    glEnd();
+
+    //    wing top
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.82, 0.84, 0.85);
+    glVertex2f(0.9, -0.24);
+    glVertex2f(1.1, -0.24);
+    glVertex2f(1, -0.35);
+    glEnd();
+
+    //    tail
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.82, 0.84, 0.85);
+    glVertex2f(1.25, -0.44);
+    glVertex2f(1.25, -0.34);
+    glVertex2f(1.15, -0.39);
+    glEnd();
+
+    //    body
+    glColor3f(0.95, 0.46, 0.02);
+    circle(0.2, 0.099, 1, -0.4);
+    glColor3f(0.94, 0.69, 0.6);
+    circle(0.009, 0.078, .93, -0.4);
+    //    eye
+    glColor3f(1, 1, 1);
+    circle(0.02, 0.02, 0.85, -0.4);
+    //    eyeball
+    glColor3f(0, 0, 0);
+    circle(0.01, 0.01, 0.85, -0.4);
+}
+
+void drawSecondFish()
+{
+    // draw 2nd fish
+
+    //    wing bottom
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.82, 0.84, 0.85);
+    glVertex2f(-0.9, -0.54);
+    glVertex2f(-1.1, -0.54);
+    glVertex2f(-1, -0.45);
+    glEnd();
+
+    //    wing top
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.82, 0.84, 0.85);
+    glVertex2f(-0.9, -0.24);
+    glVertex2f(-1.1, -0.24);
+    glVertex2f(-1, -0.35);
+    glEnd();
+
+    //    tail
+    glBegin(GL_TRIANGLES);
+    glColor3f(0.82, 0.84, 0.85);
+    glVertex2f(-1.25, -0.44);
+    glVertex2f(-1.25, -0.34);
+    glVertex2f(-1.15, -0.39);
+    glEnd();
+
+    //    body
+    glColor3f(0.95, 0.46, 0.02);
+    circle(0.2, 0.099, -1, -0.4);
+    glColor3f(0.94, 0.69, 0.6);
+    circle(0.009, 0.078, -0.93, -0.4);
+    //    eye
+    glColor3f(1, 1, 1);
+    circle(0.02, 0.02, -0.85, -0.4);
+    //    eyeball
+    glColor3f(0, 0, 0);
+    circle(0.01, 0.01, -0.85, -0.4);
+}
+
 void timer(int value)
 {
     glutPostRedisplay();
@@ -444,8 +504,22 @@ void timer(int value)
 
     // reassign the x axis value of bird
 
-    if (position < 2.55)
+    if (position < 2.85)
         position += 0.007;
     else
         position = -1.75;
+
+    // re-assign the x value of first fish
+
+    if (first_fish_position > -2.85)
+        first_fish_position -= 0.007;
+    else
+        first_fish_position = 1.75;
+
+    // re-assign the x value of second fish
+
+    if (second_fish_positon < 2.85)
+        second_fish_positon += 0.007;
+    else
+        second_fish_positon = -1.75;
 }
