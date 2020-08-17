@@ -547,11 +547,13 @@ void specialKeyPressed(int key, int x, int y)
     switch (key)
     {
     case GLUT_KEY_UP:
+        // uncomment below line if you are on windows
         //  PlaySound("fishing_music.wav", NULL, SND_ASYNC | SND_FILENAME);
         glutPostRedisplay();
         break;
 
     case GLUT_KEY_DOWN:
+        // uncomment below line if you are on windows
         // PlaySound(NULL, NULL, 0);
         glutPostRedisplay();
         break;
